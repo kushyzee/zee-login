@@ -12,33 +12,46 @@
 </head>
 
 <body>
-  <h3>Zeetech</h3>
-  <h1>Welcome back</h1>
-  <p class="subtext">Please Log in to your account</p>
+  <header>
+    <h3>Zeetech</h3>
+  </header>
   
-  <form id="sign-up" action="#">
-      <label>Username
-      <input type="text" name="username" id="username" required autocomplete="nickname">
-      </label>
-      
-      <label>Password
-      <input type="password" name="password" id="password" required autocomplete="current-password">
-      </label>
-      
-      <div class="container">
-        <div class="remember-wrapper">
-          <input type="checkbox" name="checkbox" id="remember" class="remember" />
-          <label for="remember">Remember me</label>
-        </div>
-        <a href="#">Forgot password?</a>
-      </div>
-      
-      <button type="submit">Login</button>
-  </form>
-  
-  <hr />
-  
-  <p class="sign-in">Don't have an account? <a href="./index.html">Sign up</a></p>
+  <main class="wrapper">
+    <div class="main-container">
+      <h1>Welcome back</h1>
+      <p class="subtext extra-space">Please Log in to your account</p>
+    
+      <form id="sign-up" action="#">
+          <label>Username
+          <input type="text" name="username" id="username" required autocomplete="nickname">
+          </label>
+    
+          <label>Password
+          <input type="password" name="password" id="password" required autocomplete="current-password">
+          </label>
+    
+          <div class="container">
+            <div class="remember-wrapper">
+              <input type="checkbox" name="checkbox" id="remember" class="remember" />
+              <label for="remember">Remember me</label>
+            </div>
+            <a href="#">Forgot password?</a>
+          </div>
+    
+          <button type="submit">Login</button>
+      </form>
+    
+      <hr />
+    
+      <p class="sign-in">Don't have an account? <a href="./index.html">Sign up</a></p>
+    </div>
+    <img
+          src="./images/people.svg"
+          alt="people background"
+          width="325px"
+          height="auto"
+        />
+  </main>
   <!-- <script src="main.js"></script> -->
 </body>
 </html>
