@@ -26,10 +26,6 @@ body {
   gap: 5rem;
 }
 
-.wrapper {
-  display: flex;
-}
-
 .main-container {
   max-width: 400px;
   margin-inline: auto;
@@ -94,6 +90,15 @@ input:focus {
   outline-color: var(--button-color);
 }
 
+input[type=checkbox] {
+  transform: scale(1.35);
+  margin-right: .4rem;
+}
+
+button, input[type=checkbox] {
+  cursor: pointer;
+}
+
 button,
 input {
   border-radius: 4px;
@@ -108,6 +113,11 @@ button {
   background: var(--button-color);
   color: #ffffff;
   border: none;
+  transition: background-color .2s linear;
+}
+
+button:hover {
+  background-color: #0a3534;
 }
 
 a {
@@ -165,16 +175,21 @@ a {
     font-size: 1.8rem;
   }
 
-  .main-container {
-    /* max-width: 450px; */
-  }
-
   label {
     font-size: 2rem;
   }
 
   label:last-of-type p {
     font-size: 1.4rem;
+  }
+
+  input[type] {
+    font-size: 1.8rem;
+  }
+
+  label:last-child {
+    font-size: 1.6rem;
+    cursor: pointer;
   }
 
   .policy,
@@ -185,8 +200,14 @@ a {
 
 @media screen and (min-width: 64em) {
   .wrapper {
+    display: flex;
     max-width: 1200px;
-    margin-inline: auto;
+    margin: auto;
+  }
+
+  .extra-space {
+    margin-bottom: 10vh;
+    margin-bottom: 10svh;
   }
 
   header {
@@ -195,9 +216,8 @@ a {
     padding: 2rem 0 0;
   }
 
-  h1 {
+  h1, .subtext {
     text-align: left;
-    margin-inline: auto;
   }
 
   img {
@@ -205,7 +225,7 @@ a {
     width: 400px;
     max-width: 600px;
     flex: 1 1 0;
-    margin-block: auto;
+    margin-inline: auto;
   }
 
   .main-container {
@@ -213,7 +233,7 @@ a {
     max-width: 450px;
   }
 
-  label {
+  label, .subtext {
     font-size: 2rem;
   }
 
