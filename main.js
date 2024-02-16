@@ -42,6 +42,7 @@ function resetInputStyle(input) {
 }
 
 function confirmUser() {
+  this.value = this.value.toLowerCase()
   let user = checkUsername(this.value);
 
   if (user) {
