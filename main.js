@@ -29,20 +29,19 @@ const users = [
 function changeInputStyle(input) {
   input.style.outlineColor = "#ff3232";
   input.style.borderColor = "#ff3232";
-  createBtn.disabled = 'true';
-  createBtn.style.backgroundColor = 'grey'
-  createBtn.style.cursor = 'initial'
+  createBtn.disabled = "true";
+  createBtn.style.backgroundColor = "grey";
+  createBtn.style.cursor = "initial";
 }
 
 function resetInputStyle(input) {
   input.style = "";
-  createBtn.disabled = 'false';
-  createBtn.style = ''
-
+  createBtn.disabled = "false";
+  createBtn.style = "";
 }
 
 function confirmUser() {
-  this.value = this.value.toLowerCase()
+  this.value = this.value.toLowerCase();
   let user = checkUsername(this.value);
 
   if (user) {
@@ -52,6 +51,15 @@ function confirmUser() {
     resetInputStyle(this);
     userExist.textContent = "";
   }
+}
+
+function confirmEmail() {
+  let email = this.value
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email);
+  if(!emailRegex) return
+  
+  let user = users.find((user) => user.email === this.value);
+  console.log(user);
 }
 
 function checkUsername(username) {
@@ -77,3 +85,4 @@ function loginUser() {
 }
 
 username.addEventListener("input", confirmUser);
+email.addEventListener("input", confirmEmail);
