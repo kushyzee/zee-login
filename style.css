@@ -90,11 +90,6 @@ input:focus {
   outline-color: var(--button-color);
 }
 
-input[type=checkbox] {
-  transform: scale(1.35);
-  margin-right: .4rem;
-}
-
 button, input[type=checkbox] {
   cursor: pointer;
 }
@@ -187,14 +182,23 @@ a {
     font-size: 1.8rem;
   }
 
+  input[type=checkbox] {
+    transform: scale(1.25);
+    margin-right: .4rem;
+  }
+
   label:last-child {
     font-size: 1.6rem;
     cursor: pointer;
   }
 
   .policy,
-  .policy a {
-    font-size: 1.5rem;
+  .policy a, label:last-of-type p {
+    font-size: 1.6rem;
+  }
+
+  .sign-in {
+    font-size: 1.8rem;
   }
 }
 
@@ -235,14 +239,5 @@ a {
 
   label, .subtext {
     font-size: 2rem;
-  }
-
-  label:last-of-type p {
-    font-size: 1.4rem;
-  }
-
-  .policy,
-  .policy a {
-    font-size: 1.5rem;
   }
 }
