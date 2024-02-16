@@ -1,5 +1,7 @@
 # Zeetech sign up and login pages
 
+![webpage preview](./images/preview.png)
+
 This project was created to help me practice working with JavaScript objects
 
 ## Features
