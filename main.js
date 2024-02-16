@@ -29,11 +29,16 @@ const users = [
 function changeInputStyle(input) {
   input.style.outlineColor = "#ff3232";
   input.style.borderColor = "#ff3232";
+  createBtn.disabled = 'true';
+  createBtn.style.backgroundColor = 'grey'
+  createBtn.style.cursor = 'initial'
 }
 
 function resetInputStyle(input) {
-  input.style.outlineColor = "";
-  input.style.borderColor = "";
+  input.style = "";
+  createBtn.disabled = 'false';
+  createBtn.style = ''
+
 }
 
 function confirmUser() {
