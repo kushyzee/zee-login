@@ -42,6 +42,10 @@ function resetInputStyle(input) {
   createBtn.style = "";
 }
 
+function checkUsername(username) {
+  return users.find((user) => user.username === username);
+}
+
 function confirmUser() {
   this.value = this.value.toLowerCase();
   let user = checkUsername(this.value);
@@ -68,13 +72,46 @@ function confirmEmail() {
     changeInputStyle(this);
     emailExist.textContent = "Email already exists";
   } else {
-    resetInputStyle(this)
-    emailExist.textContent = ''
+    resetInputStyle(this);
+    emailExist.textContent = "";
   }
 }
 
-function checkUsername(username) {
-  return users.find((user) => user.username === username);
+function checkPassword(password) {
+  let upperCase = false;
+  let number = false;
+  const minLength = 7;
+
+  if (password.length < minLength) {
+    console.log("error");
+    return;
+  }
+
+  for (let i = 0; i < password.length; i++) {}
+}
+
+function createNewAccount(e) {
+  e.preventDefault();
+  let userFirstName = firstName.value;
+  let userLastName = lastName.value;
+  let userUsername = username.value;
+  let userEmail = email.value;
+  let userPassword = password.value;
+
+  if (
+    !userFirstName ||
+    !userLastName ||
+    !userUsername ||
+    !userEmail ||
+    !userPassword
+  ) {
+    console.log("provide all required input");
+    return;
+  }
+
+  console.log("pass");
+
+  // checkPassword(userPassword);
 }
 
 function loginUser() {
@@ -97,4 +134,5 @@ function loginUser() {
 
 username.addEventListener("input", confirmUser);
 email.addEventListener("input", confirmEmail);
-password.addEventListener('input', confirmPassword)
+createBtn.addEventListener("click", createNewAccount);
+// password.addEventListener('input', checkPassword)
