@@ -5,6 +5,7 @@ const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const createBtn = document.querySelector("#create-btn");
 const userExist = document.querySelector("#username-exists");
+const emailExist = document.querySelector("#email-exists");
 
 const users = [
   {
@@ -29,6 +30,7 @@ const users = [
 function changeInputStyle(input) {
   input.style.outlineColor = "#ff3232";
   input.style.borderColor = "#ff3232";
+  input.style.marginBottom = "4px";
   createBtn.disabled = "true";
   createBtn.style.backgroundColor = "grey";
   createBtn.style.cursor = "initial";
@@ -54,12 +56,21 @@ function confirmUser() {
 }
 
 function confirmEmail() {
-  let email = this.value
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email);
-  if(!emailRegex) return
-  
-  let user = users.find((user) => user.email === this.value);
-  console.log(user);
+  let email = this.value;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
+    email
+  );
+  if (!emailRegex) return;
+
+  let user = users.find((user) => user.email === email);
+
+  if (user) {
+    changeInputStyle(this);
+    emailExist.textContent = "Email already exists";
+  } else {
+    resetInputStyle(this)
+    emailExist.textContent = ''
+  }
 }
 
 function checkUsername(username) {
@@ -86,3 +97,4 @@ function loginUser() {
 
 username.addEventListener("input", confirmUser);
 email.addEventListener("input", confirmEmail);
+password.addEventListener('input', confirmPassword)
