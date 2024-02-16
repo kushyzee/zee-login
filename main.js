@@ -1,3 +1,11 @@
+const firstName = document.querySelector('#first-name');
+const lastName = document.querySelector('#last-name');
+const username = document.querySelector('#username');
+const email = document.querySelector('#email');
+const password = document.querySelector('#password');
+const createBtn = document.querySelector('#create-btn');
+
+
 const users = [
   {
     id: 1,
@@ -39,30 +47,6 @@ function loginUser() {
   const password = prompt('Password')
   if (!password) return
 
-  checkPassword() ? alert(`Login successful. Hello ${currentUser.firstName}!`) : alert('incorrect password')
 }
 
-function welcomePage() {  
-  const userSelection = prompt('Enter 1 to signup, 2 to login')
-
-  if (userSelection === '1') {
-    alert('Sign up!')
-  }
-
-  else if (userSelection === '2') {
-    alert('Login!')
-    loginUser()
-  }
-
-  else if (userSelection === null) {
-    alert('cancelled!')
-  }
-
-  else {
-    alert('Please select 1 or 2')
-    welcomePage()
-  }
-}
-
-alert('welcome!')
-welcomePage()
+username.addEventListener('input', confirmUser)
