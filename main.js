@@ -6,6 +6,7 @@ const password = document.querySelector("#password");
 const createBtn = document.querySelector("#create-btn");
 const userExist = document.querySelector("#username-exists");
 const emailExist = document.querySelector("#email-exists");
+const formError = document.querySelector("#form-error");
 
 const users = [
   {
@@ -59,28 +60,14 @@ function confirmUser() {
   }
 }
 
-function checkEmail (email) {
-  return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
-    email
-  );
+function checkEmail(email) {
+  return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email);
 }
 
 function confirmEmail() {
   let email = this.value;
-  
-  if (!email) {
-    resetInputStyle(this);
-    emailExist.textContent = "";
-    return
-  }
-  
-  
-  if (!checkEmail(email)) {
-    return;
-  }
+  if (!checkEmail(email)) return;
 
-  resetInputStyle(this);
-  emailExist.textContent = "";
   let user = users.find((user) => user.email === email);
 
   if (user) {
@@ -119,17 +106,18 @@ function createNewAccount(e) {
     !userEmail ||
     !userPassword
   ) {
-    console.log("provide all required input");
+    formError.textContent = "Please fill all the fields";
     return;
   }
 
+  formError.textContent = ''
+
   if (!checkEmail(userEmail)) {
-    changeInputStyle(email)
+    changeInputStyle(email);
     emailExist.textContent = "Please enter a real email address";
-    return
-  }
-  else {
-    resetInputStyle(email)
+    return;
+  } else {
+    resetInputStyle(email);
     emailExist.textContent = "";
   }
 
