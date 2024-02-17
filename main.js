@@ -38,7 +38,7 @@ function changeInputStyle(input) {
 
 function resetInputStyle(input) {
   input.style = "";
-  createBtn.disabled = "false";
+  createBtn.disabled = "";
   createBtn.style = "";
 }
 
@@ -74,6 +74,7 @@ function confirmEmail() {
   } else {
     resetInputStyle(this);
     emailExist.textContent = "";
+    console.log(createBtn)
   }
 }
 
@@ -83,7 +84,6 @@ function checkPassword(password) {
   const minLength = 7;
 
   if (password.length < minLength) {
-    console.log("error");
     return;
   }
 
@@ -91,12 +91,12 @@ function checkPassword(password) {
 }
 
 function createNewAccount(e) {
-  e.preventDefault();
+  console.log("test")
   let userFirstName = firstName.value;
   let userLastName = lastName.value;
   let userUsername = username.value;
   let userEmail = email.value;
-  let userPassword = password.value;
+  let userPassword = password.value
 
   if (
     !userFirstName ||
@@ -135,4 +135,4 @@ function loginUser() {
 username.addEventListener("input", confirmUser);
 email.addEventListener("input", confirmEmail);
 createBtn.addEventListener("click", createNewAccount);
-// password.addEventListener('input', checkPassword)
+// password.addEventListener("input", checkPassword);
