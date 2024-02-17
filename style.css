@@ -120,6 +120,7 @@ button:hover {
   color: red;
   margin-top: -.8rem;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 a {
