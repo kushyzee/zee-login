@@ -59,13 +59,28 @@ function confirmUser() {
   }
 }
 
-function confirmEmail() {
-  let email = this.value;
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
+function checkEmail (email) {
+  return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
     email
   );
-  if (!emailRegex) return;
+}
 
+function confirmEmail() {
+  let email = this.value;
+  
+  if (!email) {
+    resetInputStyle(this);
+    emailExist.textContent = "";
+    return
+  }
+  
+  
+  if (!checkEmail(email)) {
+    return;
+  }
+
+  resetInputStyle(this);
+  emailExist.textContent = "";
   let user = users.find((user) => user.email === email);
 
   if (user) {
@@ -74,7 +89,6 @@ function confirmEmail() {
   } else {
     resetInputStyle(this);
     emailExist.textContent = "";
-    console.log(createBtn)
   }
 }
 
@@ -91,12 +105,12 @@ function checkPassword(password) {
 }
 
 function createNewAccount(e) {
-  console.log("test")
+  e.preventDefault();
   let userFirstName = firstName.value;
   let userLastName = lastName.value;
   let userUsername = username.value;
   let userEmail = email.value;
-  let userPassword = password.value
+  let userPassword = password.value;
 
   if (
     !userFirstName ||
@@ -107,6 +121,16 @@ function createNewAccount(e) {
   ) {
     console.log("provide all required input");
     return;
+  }
+
+  if (!checkEmail(userEmail)) {
+    changeInputStyle(email)
+    emailExist.textContent = "Please enter a real email address";
+    return
+  }
+  else {
+    resetInputStyle(email)
+    emailExist.textContent = "";
   }
 
   console.log("pass");
