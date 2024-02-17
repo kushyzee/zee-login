@@ -31,14 +31,14 @@ function changeInputStyle(input) {
   input.style.outlineColor = "#ff3232";
   input.style.borderColor = "#ff3232";
   input.style.marginBottom = "4px";
-  createBtn.disabled = "true";
+  createBtn.disabled = true;
   createBtn.style.backgroundColor = "grey";
   createBtn.style.cursor = "initial";
 }
 
 function resetInputStyle(input) {
   input.style = "";
-  createBtn.disabled = "";
+  createBtn.disabled = false;
   createBtn.style = "";
 }
 
