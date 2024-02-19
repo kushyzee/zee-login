@@ -118,15 +118,19 @@ function checkPassword(password) {
   for (let i = 0; i < password.length; i++) {}
 }
 
+function createUserId() {
+  return users[users.length - 1].id + 1;
+}
+
 function createNewAccount(e) {
   e.preventDefault();
-  const inputs = Array.from(document.querySelectorAll("input[type]"));
 
+  const inputs = Array.from(document.querySelectorAll("input[type]"));
   inputs.map((input) => {
     input.addEventListener("focus", () => (formError.textContent = ""));
   });
+
   const inputsValue = inputs.map((input) => input.value);
-  console.log(inputsValue);
 
   let [userFirstName, userLastName, userUsername, userEmail, userPassword] =
     inputsValue;
@@ -142,8 +146,6 @@ function createNewAccount(e) {
     return;
   }
 
-  formError.textContent = "";
-
   if (!checkEmail(userEmail)) {
     changeInputStyle(email, emailExist);
     emailExist.textContent = "Please enter a real email address";
@@ -152,7 +154,21 @@ function createNewAccount(e) {
     resetInputStyle(email, emailExist);
   }
 
-  console.log("pass");
+  let newUserId = createUserId();
+  const newUser = {
+    id: newUserId,
+    firstName: userFirstName,
+    lastName: userLastName,
+    username: userUsername,
+    email: userEmail,
+    password: userPassword,
+  }
+
+  users.push(newUser)
+  
+  document.body.innerHTML = `
+  <h1>Hello ${newUser.firstName}, Welcome to Zeetech</h1>
+  `
 
   // checkPassword(userPassword);
 }
@@ -178,5 +194,3 @@ function loginUser() {
 username.addEventListener("input", confirmUser);
 email.addEventListener("input", confirmEmail);
 createBtn.addEventListener("click", createNewAccount);
-
-// password.addEventListener("input", checkPassword);
