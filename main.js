@@ -28,19 +28,23 @@ const users = [
   },
 ];
 
-function changeInputStyle(input) {
-  input.style.outlineColor = "#ff3232";
-  input.style.borderColor = "#ff3232";
+function changeInputStyle(input, output) {
+  input.style.outlineColor = "#c10019";
+  input.style.borderColor = "#c10019";
   input.style.marginBottom = "4px";
   createBtn.disabled = true;
   createBtn.style.backgroundColor = "grey";
   createBtn.style.cursor = "initial";
+  output.style.color = "#c10019";
+  output.parentElement.style.color = "#c10019";
 }
 
-function resetInputStyle(input) {
+function resetInputStyle(input, output) {
   input.style = "";
   createBtn.disabled = false;
   createBtn.style = "";
+  output.textContent = "";
+  output.parentElement.style.color = "";
 }
 
 function checkUsername(username) {
@@ -52,11 +56,10 @@ function confirmUser() {
   let user = checkUsername(this.value);
 
   if (user) {
-    changeInputStyle(this);
+    changeInputStyle(this, userExist);
     userExist.textContent = `${this.value} isn't available`;
   } else {
-    resetInputStyle(this);
-    userExist.textContent = "";
+    resetInputStyle(this, userExist);
   }
 }
 
@@ -71,11 +74,10 @@ function confirmEmail() {
   let user = users.find((user) => user.email === email);
 
   if (user) {
-    changeInputStyle(this);
-    emailExist.textContent = "Email already exists";
+    changeInputStyle(this, emailExist);
+    emailExist.textContent = "Email has already been taken.";
   } else {
-    resetInputStyle(this);
-    emailExist.textContent = "";
+    resetInputStyle(this, emailExist);
   }
 }
 
@@ -110,15 +112,14 @@ function createNewAccount(e) {
     return;
   }
 
-  formError.textContent = ''
+  formError.textContent = "";
 
   if (!checkEmail(userEmail)) {
-    changeInputStyle(email);
+    changeInputStyle(email, emailExist);
     emailExist.textContent = "Please enter a real email address";
     return;
   } else {
-    resetInputStyle(email);
-    emailExist.textContent = "";
+    resetInputStyle(email, emailExist);
   }
 
   console.log("pass");
