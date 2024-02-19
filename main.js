@@ -32,19 +32,27 @@ function changeInputStyle(input, output) {
   input.style.outlineColor = "#c10019";
   input.style.borderColor = "#c10019";
   input.style.marginBottom = "4px";
-  createBtn.disabled = true;
-  createBtn.style.backgroundColor = "grey";
-  createBtn.style.cursor = "initial";
   output.style.color = "#c10019";
   output.parentElement.style.color = "#c10019";
 }
 
 function resetInputStyle(input, output) {
   input.style = "";
-  createBtn.disabled = false;
-  createBtn.style = "";
   output.textContent = "";
   output.parentElement.style.color = "";
+}
+
+function enableCreateButton() {
+  createBtn.disabled = false;
+  createBtn.style = "";
+  console.log("working");
+}
+
+function disableCreateButton() {
+  createBtn.disabled = true;
+  console.log("not working");
+  createBtn.style.backgroundColor = "grey";
+  createBtn.style.cursor = "initial";
 }
 
 function checkUsername(username) {
@@ -54,12 +62,21 @@ function checkUsername(username) {
 function confirmUser() {
   this.value = this.value.toLowerCase();
   let user = checkUsername(this.value);
+  let isConfirmUser = false;
 
   if (user) {
     changeInputStyle(this, userExist);
     userExist.textContent = `${this.value} isn't available`;
+    isConfirmUser = true;
   } else {
     resetInputStyle(this, userExist);
+    isConfirmUser = false;
+  }
+
+  if (!isConfirmEmail && !isConfirmUser) {
+    enableCreateButton();
+  } else {
+    disableCreateButton();
   }
 }
 
@@ -71,13 +88,22 @@ function confirmEmail() {
   let email = this.value;
   if (!checkEmail(email)) return;
 
+  let isConfirmEmail = false;
   let user = users.find((user) => user.email === email);
 
   if (user) {
     changeInputStyle(this, emailExist);
     emailExist.textContent = "Email has already been taken.";
+    isConfirmEmail = true;
   } else {
     resetInputStyle(this, emailExist);
+    isConfirmEmail = false;
+  }
+
+  if (!isConfirmEmail && !isConfirmUser) {
+    enableCreateButton();
+  } else {
+    disableCreateButton();
   }
 }
 
@@ -109,6 +135,7 @@ function createNewAccount(e) {
     !userPassword
   ) {
     formError.textContent = "Please fill all the fields";
+    disableCreateButton();
     return;
   }
 
@@ -148,4 +175,5 @@ function loginUser() {
 username.addEventListener("input", confirmUser);
 email.addEventListener("input", confirmEmail);
 createBtn.addEventListener("click", createNewAccount);
+
 // password.addEventListener("input", checkPassword);
