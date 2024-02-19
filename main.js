@@ -8,6 +8,9 @@ const userExist = document.querySelector("#username-exists");
 const emailExist = document.querySelector("#email-exists");
 const formError = document.querySelector("#form-error");
 
+let isConfirmEmail = false;
+let isConfirmUser = false;
+
 const users = [
   {
     id: 1,
@@ -45,12 +48,10 @@ function resetInputStyle(input, output) {
 function enableCreateButton() {
   createBtn.disabled = false;
   createBtn.style = "";
-  console.log("working");
 }
 
 function disableCreateButton() {
   createBtn.disabled = true;
-  console.log("not working");
   createBtn.style.backgroundColor = "grey";
   createBtn.style.cursor = "initial";
 }
@@ -62,7 +63,6 @@ function checkUsername(username) {
 function confirmUser() {
   this.value = this.value.toLowerCase();
   let user = checkUsername(this.value);
-  let isConfirmUser = false;
 
   if (user) {
     changeInputStyle(this, userExist);
@@ -88,7 +88,6 @@ function confirmEmail() {
   let email = this.value;
   if (!checkEmail(email)) return;
 
-  let isConfirmEmail = false;
   let user = users.find((user) => user.email === email);
 
   if (user) {
@@ -121,11 +120,16 @@ function checkPassword(password) {
 
 function createNewAccount(e) {
   e.preventDefault();
-  let userFirstName = firstName.value;
-  let userLastName = lastName.value;
-  let userUsername = username.value;
-  let userEmail = email.value;
-  let userPassword = password.value;
+  const inputs = Array.from(document.querySelectorAll("input[type]"));
+
+  inputs.map((input) => {
+    input.addEventListener("focus", () => (formError.textContent = ""));
+  });
+  const inputsValue = inputs.map((input) => input.value);
+  console.log(inputsValue);
+
+  let [userFirstName, userLastName, userUsername, userEmail, userPassword] =
+    inputsValue;
 
   if (
     !userFirstName ||
@@ -135,7 +139,6 @@ function createNewAccount(e) {
     !userPassword
   ) {
     formError.textContent = "Please fill all the fields";
-    disableCreateButton();
     return;
   }
 
