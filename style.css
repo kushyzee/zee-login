@@ -117,10 +117,9 @@ button:hover {
 
 .form-error {
   font-size: 1.6rem;
-  color: red;
+  color: #c10019;
   margin-top: -.8rem;
   margin-bottom: 1rem;
-  text-align: center;
 }
 
 a {
