@@ -8,8 +8,9 @@ const userExist = document.querySelector("#username-exists");
 const emailExist = document.querySelector("#email-exists");
 const formError = document.querySelector("#form-error");
 
-let isConfirmEmail = false;
-let isConfirmUser = false;
+let isvalidateEmail = false;
+let isvalidateUsername = false;
+let isConfirmPassword = false;
 
 const users = [
   {
@@ -60,20 +61,20 @@ function checkUsername(username) {
   return users.find((user) => user.username === username);
 }
 
-function confirmUser() {
+function validateUsername() {
   this.value = this.value.toLowerCase();
   let user = checkUsername(this.value);
 
   if (user) {
     changeInputStyle(this, userExist);
     userExist.textContent = `${this.value} isn't available`;
-    isConfirmUser = true;
+    isvalidateUsername = true;
   } else {
     resetInputStyle(this, userExist);
-    isConfirmUser = false;
+    isvalidateUsername = false;
   }
 
-  if (!isConfirmEmail && !isConfirmUser) {
+  if (!isvalidateEmail && !isvalidateUsername) {
     enableCreateButton();
   } else {
     disableCreateButton();
@@ -84,7 +85,7 @@ function checkEmail(email) {
   return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email);
 }
 
-function confirmEmail() {
+function validateEmail() {
   let email = this.value;
   if (!checkEmail(email)) return;
 
@@ -93,29 +94,35 @@ function confirmEmail() {
   if (user) {
     changeInputStyle(this, emailExist);
     emailExist.textContent = "Email has already been taken.";
-    isConfirmEmail = true;
+    isvalidateEmail = true;
   } else {
     resetInputStyle(this, emailExist);
-    isConfirmEmail = false;
+    isvalidateEmail = false;
   }
 
-  if (!isConfirmEmail && !isConfirmUser) {
+  if (!isvalidateEmail && !isvalidateUsername) {
     enableCreateButton();
   } else {
     disableCreateButton();
   }
 }
 
-function checkPassword(password) {
+function validatePassword() {
   let upperCase = false;
   let number = false;
   const minLength = 7;
+  let paragraph = this.parentElement.children[1]
+  let userPassword = password.value
 
-  if (password.length < minLength) {
+  if (userPassword.length < minLength) {
+    disableCreateButton();
+    changeInputStyle(password, paragraph)
     return;
   }
 
-  for (let i = 0; i < password.length; i++) {}
+  for (let i = 0; i < userPassword.length; i++) {
+    // if()
+  }
 }
 
 function createUserId() {
@@ -162,15 +169,15 @@ function createNewAccount(e) {
     username: userUsername,
     email: userEmail,
     password: userPassword,
-  }
+  };
 
-  users.push(newUser)
-  
+  users.push(newUser);
+
   document.body.innerHTML = `
   <h1>Hello ${newUser.firstName}, Welcome to Zeetech</h1>
-  `
+  `;
 
-  // checkPassword(userPassword);
+  // validatePassword(userPassword);
 }
 
 function loginUser() {
@@ -191,6 +198,7 @@ function loginUser() {
   if (!password) return;
 }
 
-username.addEventListener("input", confirmUser);
-email.addEventListener("input", confirmEmail);
+username.addEventListener("input", validateUsername);
+email.addEventListener("input", validateEmail);
+password.addEventListener("input", validatePassword);
 createBtn.addEventListener("click", createNewAccount);
