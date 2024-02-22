@@ -113,6 +113,7 @@ function validatePassword(userPassword) {
   let paragraph = password.parentElement.children[1];
 
   if (userPassword.length < minLength) {
+    changeInputStyle(password, paragraph);
     return false;
   }
 
@@ -125,11 +126,12 @@ function validatePassword(userPassword) {
     }
   }
 
-  console.log(isUpperCase, isNumber)
   if (!(isUpperCase && isNumber)) {
     changeInputStyle(password, paragraph);
+    return false;
   } else {
     resetInputStyle(password, paragraph);
+    return true;
   }
 }
 
@@ -169,7 +171,8 @@ function createNewAccount(e) {
     resetInputStyle(email, emailExist);
   }
 
-  if (validatePassword(userPassword)) {
+  if (!validatePassword(userPassword)) {
+    return
   }
 
   let newUserId = createUserId();
@@ -184,9 +187,10 @@ function createNewAccount(e) {
 
   users.push(newUser);
 
-  // document.body.innerHTML = `
-  // <h1>Hello ${newUser.firstName}, Welcome to Zeetech</h1>
-  // `;
+  document.body.innerHTML = `
+  <h1>Hello ${newUser.firstName}, Welcome to Zeetech</h1>
+  <p>Your full name is ${newUser.firstName} ${newUser.lastName}. Your username is ${newUser.username} and your email address is ${newUser.email}</p>
+  `;
 }
 
 function loginUser() {
