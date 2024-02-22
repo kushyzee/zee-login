@@ -8,9 +8,8 @@ const userExist = document.querySelector("#username-exists");
 const emailExist = document.querySelector("#email-exists");
 const formError = document.querySelector("#form-error");
 
-let isvalidateEmail = false;
-let isvalidateUsername = false;
-let isConfirmPassword = false;
+let isValidateEmail = false;
+let isValidateUsername = false;
 
 const users = [
   {
@@ -68,13 +67,13 @@ function validateUsername() {
   if (user) {
     changeInputStyle(this, userExist);
     userExist.textContent = `${this.value} isn't available`;
-    isvalidateUsername = true;
+    isValidateUsername = true;
   } else {
     resetInputStyle(this, userExist);
-    isvalidateUsername = false;
+    isValidateUsername = false;
   }
 
-  if (!isvalidateEmail && !isvalidateUsername) {
+  if (!isValidateEmail && !isValidateUsername) {
     enableCreateButton();
   } else {
     disableCreateButton();
@@ -94,34 +93,43 @@ function validateEmail() {
   if (user) {
     changeInputStyle(this, emailExist);
     emailExist.textContent = "Email has already been taken.";
-    isvalidateEmail = true;
+    isValidateEmail = true;
   } else {
     resetInputStyle(this, emailExist);
-    isvalidateEmail = false;
+    isValidateEmail = false;
   }
 
-  if (!isvalidateEmail && !isvalidateUsername) {
+  if (!isValidateEmail && !isValidateUsername) {
     enableCreateButton();
   } else {
     disableCreateButton();
   }
 }
 
-function validatePassword() {
-  let upperCase = false;
-  let number = false;
+function validatePassword(userPassword) {
+  let isUpperCase = false;
+  let isNumber = false;
   const minLength = 7;
-  let paragraph = this.parentElement.children[1]
-  let userPassword = password.value
+  let paragraph = password.parentElement.children[1];
 
   if (userPassword.length < minLength) {
-    disableCreateButton();
-    changeInputStyle(password, paragraph)
-    return;
+    return false;
   }
 
   for (let i = 0; i < userPassword.length; i++) {
-    // if()
+    let char = userPassword[i];
+    if (isNaN(char) && char === char.toUpperCase()) {
+      isUpperCase = true;
+    } else if (!isNaN(char)) {
+      isNumber = true;
+    }
+  }
+
+  console.log(isUpperCase, isNumber)
+  if (!(isUpperCase && isNumber)) {
+    changeInputStyle(password, paragraph);
+  } else {
+    resetInputStyle(password, paragraph);
   }
 }
 
@@ -161,6 +169,9 @@ function createNewAccount(e) {
     resetInputStyle(email, emailExist);
   }
 
+  if (validatePassword(userPassword)) {
+  }
+
   let newUserId = createUserId();
   const newUser = {
     id: newUserId,
@@ -173,11 +184,9 @@ function createNewAccount(e) {
 
   users.push(newUser);
 
-  document.body.innerHTML = `
-  <h1>Hello ${newUser.firstName}, Welcome to Zeetech</h1>
-  `;
-
-  // validatePassword(userPassword);
+  // document.body.innerHTML = `
+  // <h1>Hello ${newUser.firstName}, Welcome to Zeetech</h1>
+  // `;
 }
 
 function loginUser() {
@@ -200,5 +209,4 @@ function loginUser() {
 
 username.addEventListener("input", validateUsername);
 email.addEventListener("input", validateEmail);
-password.addEventListener("input", validatePassword);
 createBtn.addEventListener("click", createNewAccount);
