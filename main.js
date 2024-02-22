@@ -189,7 +189,7 @@ function createNewAccount(e) {
 
   document.body.innerHTML = `
   <h1>Hello ${newUser.firstName}, Welcome to Zeetech</h1>
-  <p>Your full name is ${newUser.firstName} ${newUser.lastName}. Your username is ${newUser.username} and your email address is ${newUser.email}</p>
+  <p style="font-size:20px">Your full name is ${newUser.firstName} ${newUser.lastName}. Your username is ${newUser.username} and your email address is ${newUser.email}</p>
   `;
 }
 
